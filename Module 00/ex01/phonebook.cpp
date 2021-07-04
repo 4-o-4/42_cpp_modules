@@ -1,8 +1,13 @@
 #include <iostream>
+#include <string>
 #include <iomanip>
+#include <cstdlib>
 
 #define DB 8
 #define COL 10
+#define INDEX 1
+#define GREEN "\033[32m"
+#define END "\033[0m"
 
 class User {
 public:
@@ -14,30 +19,42 @@ public:
 };
 
 class PhoneBook {
-    User users[DB];
+private:
+    User _users[DB];
 public:
     int setUser(int i)
     {
         std::cout << "First name: ";
-        std::cin >> users[i].firstName;
+        std::cin >> _users[i].firstName;
         std::cout << "Last name: ";
-        std::cin >> users[i].lastName;
+        std::cin >> _users[i].lastName;
         std::cout << "Nickname: ";
-        std::cin >> users[i].nickname;
+        std::cin >> _users[i].nickname;
         std::cout << "Phone number: ";
-        std::cin >> users[i].phoneNumber;
+        std::cin >> _users[i].phoneNumber;
         std::cout << "Darkest secret: ";
-        std::cin >> users[i].darkestSecret;
+        std::cin >> _users[i].darkestSecret;
         return i + 1;
     }
 
-    void printUsers(int i)
+    void printUser(int i)
     {
-        std::cout << "│"
-        << std::setw(COL) << i << "│"
-        << std::setw(COL) << cutString(users[i].firstName) << "│"
-        << std::setw(COL) << cutString(users[i].lastName) << "│"
-        << std::setw(COL) << cutString(users[i].nickname) << "│\n";
+        std::cout
+        << "│" << std::setw(COL) << i + INDEX
+        << "│" << std::setw(COL) << cutString(_users[i].firstName)
+        << "│" << std::setw(COL) << cutString(_users[i].lastName)
+        << "│" << std::setw(COL) << cutString(_users[i].nickname)
+        << "│" << std::endl;
+    }
+
+    void getUser(int i)
+    {
+        std::cout << GREEN << "First name: " << END << _users[i].firstName << "\n";
+        std::cout << GREEN << "Last name: " << END << _users[i].lastName << "\n";
+        std::cout << GREEN << "Nickname: " << END << _users[i].nickname << "\n";
+        std::cout << GREEN << "Phone number: " << END << _users[i].phoneNumber << "\n";
+        std::cout << GREEN << "Darkest secret: " << END << _users[i].darkestSecret << "\n"
+        << std::endl;
     }
 
     std::string cutString(std::string str)
@@ -49,12 +66,16 @@ public:
     }
 };
 
-static void printCmd( void )
+static void printCmd(void)
 {
-    std::cout << "Commands:\n" <<
-    "\033[32m" << "ADD " << "\033[0m" << "- add a user\n" <<
-    "\033[32m" << "SEARCH " << "\033[0m" << "- search and display a list of contacts\n" <<
-    "\033[32m" << "EXIT " << "\033[0m" << "- close the program\n" << std::endl;
+    std::cout << "Commands:\n"
+    << GREEN << "ADD"
+    << END << " - add a user\n"
+    << GREEN << "SEARCH"
+    << END << " - search and display a list of contacts\n"
+    << GREEN << "EXIT"
+    << END << " - close the program\n"
+    << std::endl;
 }
 
 static void add(PhoneBook &book, int &i)
@@ -64,10 +85,10 @@ static void add(PhoneBook &book, int &i)
     j = i % DB;
     j = book.setUser(j);
     i = i < DB ? j : DB + j;
-    std::cout << "\033[32m" << "Done\n" << "\033[0m" << std::endl;
+    std::cout << GREEN << "Done\n" << END << std::endl;
 }
 
-static void header( void )
+static void printHeader(void)
 {
     std::cout <<
     "┌──────────┬──────────┬──────────┬──────────┐\n"
@@ -75,7 +96,7 @@ static void header( void )
     "├──────────┼──────────┼──────────┼──────────┤\n";
 }
 
-static void footer( void )
+static void printFooter(void)
 {
     std::cout <<
     "└──────────┴──────────┴──────────┴──────────┘\n"
@@ -84,24 +105,21 @@ static void footer( void )
 
 static void search(PhoneBook book, int i)
 {
-    int index;
-    int id;
+    std::string str;
+    int         index;
+    int         id;
 
-    header();
+    printHeader();
     i = i > DB ? DB : i;
     index = 0;
     while (index < i)
-        book.printUsers(index++);
-    footer();
-
+        book.printUser(index++);
+    printFooter();
     std::cout << "Enter index: ";
-    std::cin >> id;
-    if (id < i)
-    {
-        header();
-        book.printUsers(id);
-        footer();
-    }
+    std::cin >> str;
+    id = atoi(str.c_str()) - INDEX;
+    if (id >= 0 && id < i)
+        book.getUser(id);
     else
         std::cout << "Error\n" << std::endl;
 }
@@ -113,12 +131,9 @@ int main()
     int         flag;
     int         i;
 
-    printCmd();
     flag = 0;
     i = 0;
-    while (!flag)
-    {
-        std::cin >> cmd;
+    do {
         if (cmd == "ADD")
             add(book, i);
         else if (cmd == "SEARCH")
@@ -127,6 +142,6 @@ int main()
             flag = 1;
         else
             printCmd();
-    }
+    } while (!flag && std::cin >> cmd);
     return 0;
 }
