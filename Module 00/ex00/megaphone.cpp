@@ -1,10 +1,9 @@
 #include <iostream>
 #include <string>
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     std::string str;
-    int         count;
+    int count;
 
     count = 1;
     if (argc == 1)
@@ -12,8 +11,7 @@ int main(int argc, char **argv)
     while (count < argc)
         str += argv[count++];
     count = 0;
-    while (str[count])
-    {
+    while (str[count]) {
         if (str[count] >= 'a' && str[count] <= 'z')
             str[count] -= 32;
         count++;
