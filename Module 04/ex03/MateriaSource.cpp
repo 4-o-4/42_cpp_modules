@@ -4,7 +4,7 @@ MateriaSource::MateriaSource(void) {
     int i = 0;
     while (i < MAX_M)
         _cope[i++] = NULL;
-};
+}
 
 MateriaSource::MateriaSource(const MateriaSource &cope) {
     int i = 0;
@@ -12,7 +12,7 @@ MateriaSource::MateriaSource(const MateriaSource &cope) {
         _cope[i] = cope._cope[i];
         i++;
     }
-};
+}
 
 MateriaSource &MateriaSource::operator=(const MateriaSource &cope) {
     int i = 0;
@@ -36,7 +36,7 @@ void MateriaSource::learnMateria(AMateria *cope) {
         i++;
     if (i < MAX_M)
         _cope[i] = cope;
-};
+}
 
 AMateria *MateriaSource::createMateria(std::string const &type) {
     int i = 0;
@@ -45,4 +45,4 @@ AMateria *MateriaSource::createMateria(std::string const &type) {
     if (i < MAX_M)
         return _cope[i]->clone();
     return NULL;
-};
+}
