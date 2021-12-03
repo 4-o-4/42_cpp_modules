@@ -1,3 +1,4 @@
+#pragma once
 #ifndef FIXED_HPP
 #define FIXED_HPP
 
@@ -16,27 +17,34 @@ public:
     Fixed(float value);
     Fixed(const Fixed &cope);
     Fixed &operator=(const Fixed &cope);
-    friend std::ostream &operator<<(std::ostream &out, const Fixed &fixed);
-    friend float operator*(const Fixed &f1, const Fixed &f2);
-    friend float operator/(const Fixed &f1, const Fixed &f2);
-    friend float operator+(const Fixed &f1, const Fixed &f2);
-    friend float operator-(const Fixed &f1, const Fixed &f2);
-    friend bool operator>(const Fixed &f1, const Fixed &f2);
-    friend bool operator>=(const Fixed &f1, const Fixed &f2);
-    friend bool operator<(const Fixed &f1, const Fixed &f2);
-    friend bool operator<=(const Fixed &f1, const Fixed &f2);
-    friend bool operator==(const Fixed &f1, const Fixed &f2);
-    friend bool operator!=(const Fixed &f1, const Fixed &f2);
+
+    float operator*(const Fixed &f) const;
+    float operator/(const Fixed &f) const;
+    float operator+(const Fixed &f) const;
+    float operator-(const Fixed &f) const;
+
+    bool operator>(const Fixed &f) const;
+    bool operator>=(const Fixed &f) const;
+    bool operator<(const Fixed &f) const;
+    bool operator<=(const Fixed &f) const;
+    bool operator==(const Fixed &f) const;
+    bool operator!=(const Fixed &f) const;
+
     Fixed &operator++();
     Fixed operator++(int);
     Fixed &operator--();
     Fixed operator--(int);
+
     static Fixed min(const Fixed &f1, const Fixed &f2);
     static Fixed max(const Fixed &f1, const Fixed &f2);
+
     int getRawBits(void) const;
     void setRawBits(int const raw);
+
     float toFloat(void) const;
     int toInt(void) const;
 };
+
+std::ostream &operator<<(std::ostream &out, const Fixed &fixed);
 
 #endif

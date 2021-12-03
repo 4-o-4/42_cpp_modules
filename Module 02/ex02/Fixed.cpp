@@ -41,44 +41,47 @@ int Fixed::toInt(void) const {
     return _floating_input >> fractional_bits;
 }
 
-float operator*(const Fixed &f1, const Fixed &f2) {
-    return f1.toFloat() * f2.toFloat();
+float Fixed::operator*(const Fixed &f) const {
+	return toFloat() * f.toFloat();
 }
 
-float operator/(const Fixed &f1, const Fixed &f2) {
-    return f1.toFloat() / f2.toFloat();
+float Fixed::operator/(const Fixed &f) const {
+	return toFloat() / f.toFloat();
 }
 
-float operator+(const Fixed &f1, const Fixed &f2) {
-    return f1.toFloat() + f2.toFloat();
-}
-float operator-(const Fixed &f1, const Fixed &f2) {
-    return f1.toFloat() - f2.toFloat();
+float Fixed::operator+(const Fixed &f) const {
+	return toFloat() + f.toFloat();
 }
 
-bool operator>(const Fixed &f1, const Fixed &f2) {
-    return f1._floating_input > f2._floating_input;
+float Fixed::operator-(const Fixed &f) const {
+	return toFloat() - f.toFloat();
 }
 
-bool operator>=(const Fixed &f1, const Fixed &f2) {
-    return f1._floating_input >= f2._floating_input;
+
+bool Fixed::operator>(const Fixed &f) const {
+	return getRawBits() > f.getRawBits();
 }
 
-bool operator<(const Fixed &f1, const Fixed &f2) {
-    return f1._floating_input < f2._floating_input;
+bool Fixed::operator>=(const Fixed &f) const {
+	return getRawBits() >= f.getRawBits();
 }
 
-bool operator<=(const Fixed &f1, const Fixed &f2) {
-    return f1._floating_input <= f2._floating_input;
+bool Fixed::operator<(const Fixed &f) const {
+	return getRawBits() < f.getRawBits();
 }
 
-bool operator==(const Fixed &f1, const Fixed &f2) {
-    return f1._floating_input == f2._floating_input;
+bool Fixed::operator<=(const Fixed &f) const {
+	return getRawBits() <= f.getRawBits();
 }
 
-bool operator!=(const Fixed &f1, const Fixed &f2) {
-    return f1._floating_input != f2._floating_input;
+bool Fixed::operator==(const Fixed &f) const {
+	return getRawBits() == f.getRawBits();
 }
+
+bool Fixed::operator!=(const Fixed &f) const {
+	return getRawBits() != f.getRawBits();
+}
+
 
 Fixed &Fixed::operator++() {
     _floating_input++;
