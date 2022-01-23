@@ -1,42 +1,30 @@
 #include "Karen.hpp"
 
-void Karen::debug(void) {
-    std::cout
-    << "[ DEBUG ]\n"
-    << "...\n"
-    << std::endl;
-    this->info();
-}
-
-void Karen::info(void) {
-    std::cout
-    << "[ INFO ]\n"
-    << "...\n"
-    << std::endl;
-    this->warning();
-}
-
-void Karen::warning(void) {
-    std::cout
-    << "[ WARNING ]\n"
-    << "...\n"
-    << std::endl;
-    this->error();
-}
-
-void Karen::error(void) {
-    std::cout
-    << "[ ERROR ]\n"
-    << "...\n"
-    << std::endl;
-}
-
 Karen::action Karen::menu[] = {
-    &Karen::debug,
-    &Karen::info,
-    &Karen::warning,
-    &Karen::error
+        &Karen::_debug,
+        &Karen::_info,
+        &Karen::_warning,
+        &Karen::_error
 };
+
+void Karen::_debug(void) {
+    std::cout << "[ DEBUG ]\n...\n" << std::endl;
+    _info();
+}
+
+void Karen::_info(void) {
+    std::cout << "[ INFO ]\n...\n" << std::endl;
+    _warning();
+}
+
+void Karen::_warning(void) {
+    std::cout << "[ WARNING ]\n...\n" << std::endl;
+    _error();
+}
+
+void Karen::_error(void) {
+    std::cout << "[ ERROR ]\n...\n" << std::endl;
+}
 
 void Karen::information(int i) {
     (this->*menu[i])();
@@ -50,7 +38,7 @@ void Karen::complain(std::string level) {
     while (i--)
         if (menu[i] == level)
             break;
-    this->information(i);
+    information(i);
     if (i == -1)
         std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
 }

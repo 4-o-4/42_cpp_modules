@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include <fstream>
 
 std::string replaceString(std::string line, std::string &s1, std::string &s2) {

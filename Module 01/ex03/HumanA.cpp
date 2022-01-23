@@ -1,6 +1,7 @@
 #include "HumanA.hpp"
 
-HumanA::HumanA(std::string name, Weapon &club) : _human(club), _name(name) {
+HumanA::HumanA(std::string name, Weapon &club)
+    : _name(name), _human(club) {
 }
 
 void HumanA::attack(void) {

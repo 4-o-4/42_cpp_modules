@@ -2,8 +2,8 @@
 #include "Zombie.hpp"
 
 int main(void) {
-    Zombie *zombie = zombieHorde(5, "DEN_");
-    std::cout << "\n" << "Pointer to the first zombie:" << "\n";
+    const Zombie *zombie = zombieHorde(5, "DEN_");
+    std::cout << "\nPointer to the first zombie:" << std::endl;
     zombie->announce();
     std::cout << std::endl;
     delete[] zombie;
