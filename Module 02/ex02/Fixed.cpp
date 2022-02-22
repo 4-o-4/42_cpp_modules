@@ -34,7 +34,7 @@ void Fixed::setRawBits(int const raw) {
 }
 
 float Fixed::toFloat(void) const {
-    return (float) _floating_input / (1 << fractional_bits);
+    return (float)_floating_input / (1 << fractional_bits);
 }
 
 int Fixed::toInt(void) const {
@@ -81,24 +81,24 @@ bool operator!=(const Fixed &f1, const Fixed &f2) {
 }
 
 Fixed &Fixed::operator++() {
-    _floating_input++;
+    _floating_input += 1 << fractional_bits;
     return *this;
 }
 
 Fixed Fixed::operator++(int) {
     Fixed tmp(*this);
-    _floating_input++;
+    _floating_input += 1 << fractional_bits;
     return tmp;
 }
 
 Fixed &Fixed::operator--() {
-    _floating_input--;
+    _floating_input -= 1 << fractional_bits;
     return *this;
 }
 
 Fixed Fixed::operator--(int) {
     Fixed tmp(*this);
-    _floating_input--;
+    _floating_input -= 1 << fractional_bits;
     return tmp;
 }
 
