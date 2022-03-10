@@ -22,7 +22,7 @@ int main() {
         std::cout << "\n-----------\n" << std::endl;
 
         ShrubberyCreationForm scf("Home");
-         bob.signForm(scf);
+        bob.signForm(scf);
         bob.executeForm(scf);
     }
     catch (std::exception &e) {
